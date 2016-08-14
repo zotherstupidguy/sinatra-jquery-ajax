@@ -5,11 +5,19 @@ get '/' do
   erb :app
 end
 
+post '/auth' do 
+  p "checking... username: #{params[:username]} password: #{params[:password]}"
+  #if exists
+  json :access_token => "tokenidveryverybig"
+end
+
+
 get '/channels' do 
   p "channels endpoint hit"
-  if params[:session_id] then
+  p params
+  if params["access_token"] then
     p json :url => 'thebigurl'
-    return json :url => 'thebigurl'
+    return json :channel_url => 'thebigurl'
   else
     p "not authorized"
     return "not authorized"
@@ -25,8 +33,4 @@ get '/channels' do
 =end
 end
 
-post '/auth' do 
-  p "checking... username: #{params[:username]} password: #{params[:password]}"
-  #if exists
-  json :access_token => "tokenidveryverybig"
-end
+
