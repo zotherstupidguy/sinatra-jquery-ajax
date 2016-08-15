@@ -1,6 +1,6 @@
 require 'sinatra'
 require "sinatra/json"
-
+require 'securerandom'
 get '/' do
   erb :app
 end
@@ -8,7 +8,8 @@ end
 post '/auth' do 
   p "checking... username: #{params[:username]} password: #{params[:password]}"
   #if exists
-  json :access_token => "tokenidveryverybig"
+  token = SecureRandom.hex
+  json :access_token => token #"tokenidveryverybig"
 end
 
 
@@ -32,5 +33,3 @@ get '/channels' do
   end
 =end
 end
-
-
